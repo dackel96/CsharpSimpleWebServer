@@ -7,9 +7,6 @@
 //GetStream flow of bytes
 
 using CsharpSimpleWebServer.Server;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
 
 var server = new Server("127.0.0.1", 8080);
 

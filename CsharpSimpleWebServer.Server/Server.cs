@@ -1,5 +1,6 @@
 ﻿namespace CsharpSimpleWebServer.Server
 {
+    using CsharpSimpleWebServer.Server.Http;
     using System.Net;
     using System.Net.Sockets;
     using System.Text;
@@ -14,7 +15,7 @@
         {
             this.ipAddress = IPAddress.Parse(ipAddress);
 
-            this.port = 8080;
+            this.port = port;
 
             this.tcpListener = new TcpListener(this.ipAddress, port);
         }
@@ -35,9 +36,11 @@
 
                 NetworkStream networkStream = connection.GetStream();
 
-                var request = await this.ReadRequest(networkStream);
+                var requestText = await this.ReadRequest(networkStream);
 
-                Console.WriteLine(request);
+                Console.WriteLine(requestText);
+
+                var request = HttpRequest.Parse(requestText);
 
                 await WriteResponse(networkStream);
 
